@@ -1155,6 +1155,9 @@ module Gruff
           -(width / 2.0)
         end
       end
+      lines = label.to_s.split("\n").size
+      height *= lines
+
       y_offset = [(height / 2.0), margin].max
 
       [x_offset, y_offset]
