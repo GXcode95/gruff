@@ -131,7 +131,7 @@ private
 
         top_y, bottom_y = conversion.get_top_bottom_scaled(bar.point)
         if top_y != bottom_y
-          rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: @bar_colors[index])
+          rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: @bar_colors[group_index])
           rect_renderer.render(left_x, bottom_y - AXIS_MARGIN, right_x, top_y)
         end
 
