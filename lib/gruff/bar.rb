@@ -103,7 +103,6 @@ private
       end
 
       @graph_height = @graph_bottom - @graph_top
-      @graph_bottom += 20
     end
   end
 
