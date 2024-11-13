@@ -53,6 +53,11 @@ class Gruff::Bar < Gruff::Base
     @spacing_factor = (1 - space_percent)
   end
 
+  def initialize(target_width = DEFAULT_TARGET_WIDTH, colors: [])
+    @colors = colors
+    super(target_width)
+  end
+
 private
 
   def initialize_attributes
@@ -124,7 +129,7 @@ private
 
         top_y, bottom_y = conversion.get_top_bottom_scaled(bar.point)
         if top_y != bottom_y
-          rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: bar.color)
+          rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: @colors[index])
           rect_renderer.render(left_x, bottom_y - AXIS_MARGIN, right_x, top_y)
         end
 
