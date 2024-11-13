@@ -102,9 +102,8 @@ private
         @graph_top += metrics.height
       end
 
-      @graph_bottom -= 20
-
       @graph_height = @graph_bottom - @graph_top
+      @graph_height += 20
     end
   end
 
