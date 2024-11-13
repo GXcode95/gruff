@@ -69,7 +69,6 @@ private
     @label_formatting = nil
     @show_labels_for_bar_values = false
     @hide_labels = false
-    @label_margin = 40
   end
 
   def setup_drawing
