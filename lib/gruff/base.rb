@@ -1106,8 +1106,12 @@ module Gruff
       return 0 if text.empty?
 
       metrics = text_metrics(font, text, rotation: rotation)
-      # Calculate manually because it does not return the height after rotation.
-      (metrics.width * Math.sin(deg2rad(rotation))).abs + (metrics.height * Math.cos(deg2rad(rotation))).abs
+      if rotation.zero?
+        metrics.height + text.count("\n") * metrics.height
+      else
+        # Calculate manually because it does not return the height after rotation.
+        (metrics.width * Math.sin(deg2rad(rotation))).abs + (metrics.height * Math.cos(deg2rad(rotation))).abs
+      end
     end
 
     # Returns the width of a string at this point size.
