@@ -819,8 +819,6 @@ module Gruff
 
     # Draws the data value over the data point in bar graphs
     def draw_value_label(width, height, x_offset, y_offset, data_point, gravity: Magick::CenterGravity)
-      return if @hide_line_markers
-
       draw_label_at(width, height, x_offset, y_offset, data_point, gravity: gravity)
     end
 
