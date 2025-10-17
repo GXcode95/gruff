@@ -121,6 +121,9 @@ module Gruff
     # Will be scaled down if graph is smaller than 800px wide.
     attr_writer :legend_box_size
 
+    # The offset of the alternate labels. Default is +0+.
+    attr_writer :label_y_alternate_offset
+
     # If one numerical argument is given, the graph is drawn at 4/3 ratio
     # according to the given width (+800+ results in 800x600, +400+ gives 400x300,
     # etc.).
@@ -189,7 +192,7 @@ module Gruff
       @title_margin = TITLE_MARGIN
 
       @legend_box_size = 20.0
-
+      
       @no_data_message = 'No Data'
 
       @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = @legend_at_bottom = false
@@ -203,6 +206,8 @@ module Gruff
 
       @x_axis_label_format = nil
       @y_axis_label_format = nil
+      
+      @label_y_alternate_offset = 0
     end
     protected :initialize_attributes
 
@@ -789,11 +794,13 @@ module Gruff
     end
 
     # Draws column labels below graph, centered over x
-    def draw_label(x, index, gravity = Magick::NorthGravity, &block)
+    def draw_label(x,index, gravity = Magick::NorthGravity, y_alternate_offset: 0, &block)
       draw_unique_label(index) do
         if x >= @graph_left && x <= @graph_right
           y = @graph_bottom
+          
           x_offset, y_offset = calculate_label_offset(@marker_font, @labels[index], @label_margin, @label_rotation)
+          y += @label_y_alternate_offset if index.odd?
 
           draw_label_at(1.0, 1.0, x + x_offset, y + y_offset, @labels[index], gravity: gravity, rotation: @label_rotation)
           yield if block
@@ -982,7 +989,7 @@ module Gruff
     end
 
     def setup_bottom_margin
-      graph_bottom_margin = hide_bottom_label_area? ? @bottom_margin : @bottom_margin + labels_caps_height + @label_margin
+      graph_bottom_margin = hide_bottom_label_area? ? @bottom_margin : @bottom_margin + labels_caps_height + @label_margin + @label_y_alternate_offset
       graph_bottom_margin += (calculate_legend_height + @legend_margin) if @legend_at_bottom
 
       x_axis_label_height = @x_axis_label.nil? ? 0.0 : marker_caps_height + (@label_margin * 2)

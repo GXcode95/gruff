@@ -39,6 +39,9 @@ class Gruff::Line < Gruff::Base
 
   # The number of vertical lines shown.
   attr_writer :marker_x_count
+  
+  # The offset of the alternate labels.
+  attr_writer :alternate_label_offset
 
   # Call with target pixel width of graph (+800+, +400+, +300+), and/or +false+ to omit lines (points only).
   #
